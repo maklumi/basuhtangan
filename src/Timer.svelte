@@ -1,21 +1,25 @@
 <script>
-  import Progressbar from "./Progressbar.svelte";
-  const totalmasa = 10;
-  let masatinggal = totalmasa;
-  let isrunning = false;
+  import { createEventDispatcher } from 'svelte'
+  import Progressbar from './Progressbar.svelte'
+  const totalmasa = 10
+  let masatinggal = totalmasa
+  let isrunning = false
 
-  $: progress = ((totalmasa - masatinggal) / totalmasa) * 100;
+  $: progress = ((totalmasa - masatinggal) / totalmasa) * 100
+
+  const dispatch = createEventDispatcher()
 
   function handleClick() {
-    isrunning = true;
+    isrunning = true
     const pemasa = setInterval(() => {
-      masatinggal -= 1;
+      masatinggal -= 1
       if (masatinggal == 0) {
-        isrunning = false;
-        masatinggal = totalmasa;
-        clearInterval(pemasa);
+        isrunning = false
+        masatinggal = totalmasa
+        dispatch('habis', 'masa habis')
+        clearInterval(pemasa)
       }
-    }, 1000);
+    }, 1000)
   }
 </script>
 
