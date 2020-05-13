@@ -1,0 +1,18 @@
+{
+  "version": 3,
+  "file": "bundle.css",
+  "sources": [
+    "../../App.svelte",
+    "../../Howto.svelte",
+    "../../Progressbar.svelte",
+    "../../Timer.svelte"
+  ],
+  "sourcesContent": [
+    "<script>\n  import Timer from './Timer.svelte'\n  import Howto from './Howto.svelte'\n  let audio\n\n  function handleHabis() {\n    console.log('abeehh')\n    audio.play()\n  }\n</script>\n\n<style>\n  h1,\n  h3 {\n    text-align: center;\n  }\n</style>\n\n<h1>Basuh Tangan</h1>\n\n<Timer on:habis={handleHabis} />\n\n<Howto />\n\n<h3>\n  <a href=\"https://www.who.int/gpsc/clean_hands_protection/en/\">Punca gambar</a>\n  <a href=\"https://freesound.org/people/metrostock99/sounds/345086/\">\n    Punca bunyi\n  </a>\n</h3>\n\n<audio src=\"bunyiohyeah.wav\" bind:this={audio} />\n",
+    "<style>\n  img {\n    width: 100%;\n  }\n</style>\n\n<div bp=\"grid\">\n  <img bp=\"offset-5@md 4@md 12@sm\" src=\"basuhtangan.gif\" alt=\"basuhtangan \" />\n</div>\n",
+    "<script>\n  export let progress;\n</script>\n\n<style>\n  .progress-container {\n    margin: 20px 0;\n    border: solid #f3f3f3 1px;\n  }\n  .progress-bar {\n    height: 30px;\n    background-color: rgb(77, 199, 55);\n  }\n</style>\n\n<div bp=\"grid\">\n  <div bp=\"offset-5@md 4@md 12@sm\" class=\"progress-container\">\n    <div class=\"progress-bar\" style=\"width:{progress}%;\">\n      <span class=\"sr-only\">%{progress}</span>\n    </div>\n  </div>\n</div>\n",
+    "<script>\n  import { createEventDispatcher } from 'svelte'\n  import Progressbar from './Progressbar.svelte'\n  const totalmasa = 10\n  let masatinggal = totalmasa\n  let isrunning = false\n\n  $: progress = ((totalmasa - masatinggal) / totalmasa) * 100\n\n  const dispatch = createEventDispatcher()\n\n  function handleClick() {\n    isrunning = true\n    const pemasa = setInterval(() => {\n      masatinggal -= 1\n      if (masatinggal == 0) {\n        isrunning = false\n        masatinggal = totalmasa\n        dispatch('habis', 'masa habis')\n        clearInterval(pemasa)\n      }\n    }, 1000)\n  }\n</script>\n\n<style>\n  h2 {\n    margin: 0;\n  }\n  .start {\n    background-color: rgb(154, 73, 73);\n    width: 100%;\n    margin: 10px 0;\n  }\n  button:disabled {\n    background-color: yellow;\n    cursor: not-allowed;\n  }\n</style>\n\n<div bp=\"grid\">\n  <h2 bp=\"offset-5@md 4@md 12@sm\">Saat lagi: {masatinggal}</h2>\n</div>\n\n<Progressbar {progress} />\n<div bp=\"grid\">\n  <button\n    disabled={isrunning}\n    vbp=\"offset-5@md 4@md 12@sm\"\n    class=\"start\"\n    on:click={handleClick}>\n    Mulakan\n  </button>\n</div>\n"
+  ],
+  "names": [],
+  "mappings": "AAYE,gBAAE,CACF,EAAE,cAAC,CAAC,AACF,UAAU,CAAE,MAAM,AACpB,CAAC;ACdD,GAAG,eAAC,CAAC,AACH,KAAK,CAAE,IAAI,AACb,CAAC;ACED,mBAAmB,cAAC,CAAC,AACnB,MAAM,CAAE,IAAI,CAAC,CAAC,CACd,MAAM,CAAE,KAAK,CAAC,OAAO,CAAC,GAAG,AAC3B,CAAC,AACD,aAAa,cAAC,CAAC,AACb,MAAM,CAAE,IAAI,CACZ,gBAAgB,CAAE,IAAI,EAAE,CAAC,CAAC,GAAG,CAAC,CAAC,EAAE,CAAC,AACpC,CAAC;ACcD,EAAE,eAAC,CAAC,AACF,MAAM,CAAE,CAAC,AACX,CAAC,AACD,MAAM,eAAC,CAAC,AACN,gBAAgB,CAAE,IAAI,GAAG,CAAC,CAAC,EAAE,CAAC,CAAC,EAAE,CAAC,CAClC,KAAK,CAAE,IAAI,CACX,MAAM,CAAE,IAAI,CAAC,CAAC,AAChB,CAAC,AACD,qBAAM,SAAS,AAAC,CAAC,AACf,gBAAgB,CAAE,MAAM,CACxB,MAAM,CAAE,WAAW,AACrB,CAAC"
+}
